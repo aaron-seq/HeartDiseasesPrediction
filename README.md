@@ -425,7 +425,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Issues**: [GitHub Issues](https://github.com/aaronseq12/HeartDiseasesPrediction/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/aaronseq12/HeartDiseasesPrediction/discussions)
-- **Email**: aaron.seq12@example.com
+- **Email**: aaronsequeira12@gmail.com.com
 
 ## 🔮 Future Work
 
@@ -450,8 +450,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Advanced explainability features
 - Clinical decision support integration
 
----
-
-**Made with ❤️ for advancing healthcare through AI**
-
-*This project demonstrates the evolution from basic neural networks to state-of-the-art medical AI systems. The journey from 55% to 96% accuracy showcases the power of modern machine learning techniques in healthcare applications.*
