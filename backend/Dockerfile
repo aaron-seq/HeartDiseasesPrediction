@@ -13,14 +13,16 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Copy ONLY requirements first for better caching
 COPY requirements.txt .
 
 # Install Python dependencies
+# This layer will be cached unless requirements.txt changes
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . .
+# Copy application code AFTER installing dependencies
+# This ensures dependency layer is reused when only code changes
+COPY app/ ./app/
 
 # Create directories for models and logs
 RUN mkdir -p models/saved_models logs
