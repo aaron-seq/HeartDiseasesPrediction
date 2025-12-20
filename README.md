@@ -92,7 +92,7 @@ notebooks/         # Jupyter notebooks for ML experiments
 
 ## Prerequisites
 
-- Python 3.8 or higher
+- Python 3.11 or higher (recommended for backend)
 - Node.js 16 or higher  
 - Docker and Docker Compose (optional, for containerized deployment)
 - 4GB RAM minimum for ML model inference
@@ -103,8 +103,8 @@ notebooks/         # Jupyter notebooks for ML experiments
 
 ```bash
 # Clone the repository
-git clone https://github.com/aaron-seq/HeartDiseasesPrediction.git
-cd HeartDiseasesPrediction
+git clone https://github.com/aaron-seq/heart-diseases-prediction-tool.git
+cd heart-diseases-prediction-tool
 
 # Start all services
 docker-compose up -d
@@ -115,6 +115,8 @@ docker-compose up -d
 # API Documentation: http://localhost:8000/docs
 ```
 
+**Note**: You'll need to train the model first or provide pre-trained model artifacts. See the Data Setup section below.
+
 ### Manual Setup
 
 #### Backend Setup
@@ -123,7 +125,7 @@ docker-compose up -d
 cd backend
 
 # Create virtual environment
-python -m venv venv
+python3.11 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
@@ -131,6 +133,7 @@ pip install -r requirements.txt
 
 # Set environment variables
 cp .env.example .env
+# Edit .env with your configuration
 
 # Run development server
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
@@ -147,6 +150,30 @@ npm install
 # Start development server
 npm run dev
 ```
+
+#### Data and Model Setup
+
+The application requires trained model artifacts. You have two options:
+
+**Option 1: Train from Jupyter Notebook**
+
+```bash
+# Install Jupyter dependencies
+pip install jupyter notebook
+
+# Run the training notebook
+jupyter notebook Enhanced2025_Heart_Disease_Prediction.ipynb
+
+# Follow notebook instructions to train and save model
+# Model artifacts will be saved to backend/models/saved_models/
+```
+
+**Option 2: Provide Pre-trained Models**
+
+Place the following files in `backend/models/saved_models/`:
+- `heart_disease_model.h5` - Trained Keras model
+- `data_preprocessor.pkl` - Fitted preprocessing pipeline
+- `model_metadata.json` - Model configuration and metrics
 
 ## API Endpoints
 
@@ -224,12 +251,13 @@ npm run test:coverage
 
 ```env
 API_TITLE=Heart Disease Prediction API
-API_VERSION=1.0.0
+API_VERSION=2.0.0
 API_HOST=0.0.0.0
 API_PORT=8000
 LOG_LEVEL=INFO
 ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
-MODEL_PATH=./models/heart_disease_model.h5
+MODEL_PATH=./models/saved_models
+SECRET_KEY=your-secret-key-change-in-production
 ```
 
 ### Frontend (.env)
@@ -284,6 +312,10 @@ Contributions are welcome! Please follow these guidelines:
 - Frontend: Use ESLint and Prettier for consistent code style
 - Commit messages: Follow conventional commits specification
 
+## Known Issues
+
+See the [Issues](https://github.com/aaron-seq/heart-diseases-prediction-tool/issues) page for current known issues and planned improvements.
+
 ## Monitoring and Logging
 
 - Structured JSON logging for easy parsing and analysis
@@ -296,7 +328,7 @@ Contributions are welcome! Please follow these guidelines:
 
 - Input validation on both client and server
 - CORS configuration for allowed origins
-- Rate limiting on API endpoints (recommended for production)
+- Rate limiting recommended for production
 - Environment-based configuration for sensitive data
 - HTTPS enforcement in production
 - Regular dependency updates for security patches
@@ -331,8 +363,8 @@ If you use this project in your research, please cite:
 @software{heart_disease_prediction,
   author = {Aaron Sequeira},
   title = {Heart Disease Prediction using Advanced Neural Networks},
-  year = {2024},
-  url = {https://github.com/aaron-seq/HeartDiseasesPrediction}
+  year = {2025},
+  url = {https://github.com/aaron-seq/heart-diseases-prediction-tool}
 }
 ```
 
