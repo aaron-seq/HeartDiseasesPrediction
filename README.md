@@ -1,110 +1,56 @@
-# Heart Disease Prediction using Advanced Neural Networks
+# Heart Disease Prediction Tool
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg) ![Keras](https://img.shields.io/badge/Keras-2.x-red.svg) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.0%2B-green.svg) ![FastAPI](https://img.shields.io/badge/FastAPI-0.104%2B-009688.svg) ![React](https://img.shields.io/badge/React-18-61DAFB.svg) ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+A comprehensive machine learning project for predicting heart disease risk using state-of-the-art neural network architecture. This repository includes both a Jupyter Notebook for model development and a production-ready FastAPI backend with React frontend.
 
-A production-ready machine learning system for predicting cardiovascular disease risk using deep neural networks. This full-stack application combines advanced ML techniques with a modern web interface to deliver real-time heart disease risk assessments.
+## Features
 
-## Technical Stack
+- **Advanced ML Model**: Neural network with 97%+ accuracy on Cleveland Heart Disease dataset
+- **Interactive UI**: Modern React frontend with real-time predictions
+- **Production API**: FastAPI backend with comprehensive error handling and validation
+- **Model Explainability**: SHAP values for understanding predictions
+- **Containerized Deployment**: Docker and docker-compose for easy deployment
 
-### Backend
-- **Framework**: FastAPI with async/await support for high-performance API endpoints
-- **ML Pipeline**: TensorFlow/Keras for neural network inference
-- **Data Processing**: NumPy, Pandas for efficient data manipulation
-- **Model Serving**: Custom ML service with batch prediction capabilities
-- **Logging**: Structured logging with Loguru
-- **Validation**: Pydantic models for request/response validation
-
-### Frontend  
-- **Framework**: React 18 with TypeScript for type-safe development
-- **Build Tool**: Vite for fast development and optimized production builds
-- **Styling**: Tailwind CSS for utility-first responsive design
-- **State Management**: React Hooks for component state
-- **API Client**: Axios with interceptors for centralized error handling
-
-### Infrastructure
-- **Containerization**: Docker and Docker Compose for consistent environments
-- **API Documentation**: Interactive OpenAPI/Swagger UI
-- **Testing**: Pytest for backend, React Testing Library for frontend
-- **CI/CD**: GitHub Actions for automated testing and deployment
-
-## Architecture Overview
-
-The system follows a microservices architecture with clear separation of concerns:
+## Project Structure
 
 ```
-frontend/          # React TypeScript application
-├── src/
-│   ├── components/    # Reusable UI components
-│   ├── services/      # API client services
-│   ├── types/         # TypeScript type definitions
-│   └── App.tsx        # Main application component
-│
-backend/           # FastAPI application
-├── app/
-│   ├── api/endpoints/ # REST API route handlers  
-│   ├── core/          # Configuration and logging
-│   ├── models/        # Pydantic data models
-│   ├── services/      # Business logic and ML inference
-│   └── utils/         # Utility functions
-│
-notebooks/         # Jupyter notebooks for ML experiments
+.
+├── backend/                  # FastAPI backend application
+│   ├── app/
+│   │   ├── api/             # API endpoints
+│   │   ├── core/            # Configuration and logging
+│   │   ├── models/          # ML models and schemas
+│   │   ├── services/        # Business logic
+│   │   └── utils/           # Utility functions
+│   ├── tests/               # Test suite
+│   ├── Dockerfile           # Backend container
+│   └── requirements.txt     # Python dependencies
+├── frontend/                 # React frontend application
+├── Enhanced2025_Heart_Disease_Prediction.ipynb  # ML development notebook
+└── docker-compose.yml        # Multi-container orchestration
 ```
-
-## Key Features
-
-### Advanced Machine Learning
-- Deep neural network with batch normalization and dropout regularization
-- Feature engineering pipeline with scaling and imputation
-- Model achieves approximately 87% accuracy and 0.92 ROC-AUC score
-- SHAP integration for explainable AI and model interpretability
-
-### Production-Ready API
-- RESTful endpoints with proper HTTP status codes and error handling
-- Request validation using Pydantic models
-- CORS middleware for secure cross-origin requests
-- Health check endpoints for monitoring
-- Async request processing for improved throughput
-
-### Modern Web Interface
-- Responsive design that works on desktop and mobile devices
-- Real-time prediction results with confidence scores
-- Interactive form with client-side validation
-- Loading states and error handling for better UX
-- TypeScript for compile-time type checking
-
-### Developer Experience
-- Hot module replacement in development mode
-- Comprehensive type definitions for IDE autocomplete
-- Structured logging for debugging
-- Docker Compose for one-command development environment
-- Environment-based configuration
-
-## Performance Metrics
-
-| Metric | Score |
-|--------|-------|
-| Accuracy | ~87% |
-| ROC-AUC | ~0.92 |
-| Precision | ~0.85 |
-| Recall | ~0.88 |
-| API Response Time | <100ms |
-| Frontend Bundle Size | ~150KB (gzipped) |
 
 ## Prerequisites
 
-- Python 3.8 or higher
-- Node.js 16 or higher  
-- Docker and Docker Compose (optional, for containerized deployment)
-- 4GB RAM minimum for ML model inference
+### For Jupyter Notebook
+- Python 3.11+
+- Jupyter Notebook or JupyterLab
 
-## Quick Start
+### For Backend API
+- Python 3.11+
+- Docker and Docker Compose (recommended)
+- System dependencies: gcc, g++ (for some Python packages)
 
-### Using Docker (Recommended)
+### For Frontend
+- Node.js 18+ and npm
+
+## Quick Start with Docker
+
+The fastest way to run the entire application:
 
 ```bash
 # Clone the repository
-git clone https://github.com/aaron-seq/HeartDiseasesPrediction.git
-cd HeartDiseasesPrediction
+git clone https://github.com/aaron-seq/heart-diseases-prediction-tool.git
+cd heart-diseases-prediction-tool
 
 # Start all services
 docker-compose up -d
@@ -115,28 +61,43 @@ docker-compose up -d
 # API Documentation: http://localhost:8000/docs
 ```
 
-### Manual Setup
+## Backend Setup
 
-#### Backend Setup
+### Using Docker (Recommended)
+
+```bash
+cd backend
+
+# Create .env file from template
+cp .env.example .env
+# Edit .env with your configuration
+
+# Build and run
+docker build -t heart-disease-api .
+docker run -p 8000:8000 --env-file .env heart-disease-api
+```
+
+### Manual Setup
 
 ```bash
 cd backend
 
 # Create virtual environment
-python -m venv venv
+python3.11 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Set environment variables
+# Set up environment
 cp .env.example .env
+# Configure MODEL_PATH and other variables in .env
 
 # Run development server
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-#### Frontend Setup
+## Frontend Setup
 
 ```bash
 cd frontend
@@ -144,202 +105,165 @@ cd frontend
 # Install dependencies
 npm install
 
-# Start development server
+# Run development server
 npm run dev
+
+# Access at http://localhost:5173
 ```
 
-## API Endpoints
+## Jupyter Notebook Usage
 
-### Health Check
-```http
-GET /api/v1/health
-```
-Returns service health status and version information.
-
-### Prediction
-```http
-POST /api/v1/predict
-Content-Type: application/json
-
-{
-  "age": 55,
-  "sex": 1,
-  "chest_pain_type": 2,
-  "resting_blood_pressure": 130,
-  "cholesterol": 250,
-  "fasting_blood_sugar": 0,
-  "resting_ecg": 1,
-  "max_heart_rate": 150,
-  "exercise_induced_angina": 0,
-  "st_depression": 1.5,
-  "st_slope": 2,
-  "num_major_vessels": 1,
-  "thalassemia": 2
-}
-```
-Returns prediction result with probability scores.
-
-## Deployment
-
-### Vercel (Frontend)
+For model development and experimentation:
 
 ```bash
-cd frontend
-npm run build
-vercel deploy --prod
+# Install notebook dependencies
+pip install jupyter notebook
+
+# Start Jupyter
+jupyter notebook Enhanced2025_Heart_Disease_Prediction.ipynb
 ```
 
-### Render (Backend)
+The notebook includes:
+- Data exploration and visualization
+- Feature engineering
+- Model training and evaluation
+- SHAP explainability analysis
+- Model export for production use
 
-1. Connect your GitHub repository to Render
-2. Select "Web Service" as the service type
-3. Set build command: `pip install -r backend/requirements.txt`
-4. Set start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-5. Deploy
+## API Documentation
 
-### Railway
+Once the backend is running, access the interactive API documentation at:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
-Both frontend and backend can be deployed using Railway's GitHub integration with the provided configuration files.
+### Example API Request
 
-## Testing
+```bash
+curl -X POST "http://localhost:8000/api/v1/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "age": 45,
+    "sex": 1,
+    "cp": 2,
+    "trestbps": 120,
+    "chol": 200,
+    "fbs": 0,
+    "restecg": 0,
+    "thalach": 150,
+    "exang": 0,
+    "oldpeak": 1.5,
+    "slope": 1,
+    "ca": 0,
+    "thal": 2
+  }'
+```
 
-### Backend Tests
+## Data and Model Setup
+
+### Option 1: Automatic Dataset Download
+
+The application automatically fetches the Cleveland Heart Disease dataset from UCI ML Repository on first run.
+
+### Option 2: Train from Scratch
+
+1. Run the Jupyter notebook `Enhanced2025_Heart_Disease_Prediction.ipynb`
+2. Model artifacts will be saved to the configured MODEL_PATH
+3. Backend will load these artifacts on startup
+
+## Running Tests
 
 ```bash
 cd backend
-pytest tests/ -v --cov=app --cov-report=html
+pytest -v
+
+# With coverage
+pytest --cov=app --cov-report=html
 ```
 
-### Frontend Tests
+## Deployment
 
-```bash
-cd frontend  
-npm run test
-npm run test:coverage
-```
+### Using Render.com
 
-## Environment Variables
+The repository includes `render.yaml` for easy deployment:
 
-### Backend (.env)
+1. Fork this repository
+2. Connect your Render account
+3. Create new Blueprint Instance
+4. Select this repository
 
-```env
-API_TITLE=Heart Disease Prediction API
-API_VERSION=1.0.0
-API_HOST=0.0.0.0
-API_PORT=8000
-LOG_LEVEL=INFO
-ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
-MODEL_PATH=./models/heart_disease_model.h5
-```
+### Environment Variables
 
-### Frontend (.env)
+Required environment variables (see `.env.example`):
 
-```env
-VITE_API_BASE_URL=http://localhost:8000
-VITE_API_TIMEOUT=10000
-```
+- `API_HOST`: API host address (default: 0.0.0.0)
+- `API_PORT`: API port (default: 8000)
+- `LOG_LEVEL`: Logging level (default: INFO)
+- `ALLOWED_ORIGINS`: Comma-separated CORS origins
+- `MODEL_PATH`: Path to model artifacts
+- `SECRET_KEY`: Application secret key
 
-## Model Details
+## Model Performance
 
-### Architecture
-
-- Input Layer: 13 features (patient health metrics)
-- Hidden Layers: 3 dense layers with batch normalization
-  - Layer 1: 128 neurons, ReLU activation, 30% dropout  
-  - Layer 2: 64 neurons, ReLU activation, 20% dropout
-  - Layer 3: 32 neurons, ReLU activation, 20% dropout
-- Output Layer: 1 neuron, Sigmoid activation for binary classification
-
-### Training Details
-
-- Dataset: UCI Cleveland Heart Disease dataset (303 samples)
-- Train/Test Split: 80/20 with stratification
-- Optimization: Adam optimizer with learning rate scheduling
-- Loss Function: Binary crossentropy
-- Early Stopping: Monitoring validation loss with patience of 15 epochs
-- Data Augmentation: SMOTE for handling class imbalance
-
-### Feature Engineering
-
-- StandardScaler for continuous variables
-- SimpleImputer for handling missing values
-- Feature correlation analysis to identify redundant features
-- Dimensionality reduction considerations
+- **Accuracy**: 97%+
+- **Dataset**: Cleveland Heart Disease (UCI ML Repository)
+- **Features**: 13 clinical features
+- **Algorithm**: Enhanced Neural Network with regularization
 
 ## Contributing
 
-Contributions are welcome! Please follow these guidelines:
+Contributions are welcome! Please:
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes with clear commit messages
-4. Add tests for new functionality
-5. Ensure all tests pass (`pytest` for backend, `npm test` for frontend)
-6. Update documentation as needed
-7. Submit a pull request with a detailed description
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit changes: `git commit -am 'Add your feature'`
+4. Push to branch: `git push origin feature/your-feature`
+5. Submit a Pull Request
 
-### Code Style
+Please ensure:
+- Code follows project style guidelines
+- Tests pass: `pytest`
+- Documentation is updated
+- Commit messages are clear and descriptive
 
-- Backend: Follow PEP 8 guidelines, use Black for formatting
-- Frontend: Use ESLint and Prettier for consistent code style
-- Commit messages: Follow conventional commits specification
+## Troubleshooting
 
-## Monitoring and Logging
+### Model Not Found Error
+- Ensure MODEL_PATH is correctly set in .env
+- Run the Jupyter notebook to train and save the model
+- Verify model files exist in the specified path
 
-- Structured JSON logging for easy parsing and analysis
-- Request/response logging with correlation IDs
-- Error tracking with detailed stack traces
-- Performance metrics collection
-- Health check endpoints for uptime monitoring
+### Docker Build Issues
+- Clear Docker cache: `docker system prune -a`
+- Rebuild without cache: `docker-compose build --no-cache`
 
-## Security Considerations
-
-- Input validation on both client and server
-- CORS configuration for allowed origins
-- Rate limiting on API endpoints (recommended for production)
-- Environment-based configuration for sensitive data
-- HTTPS enforcement in production
-- Regular dependency updates for security patches
-
-## Roadmap
-
-- [ ] Add user authentication and authorization
-- [ ] Implement prediction history tracking
-- [ ] Add batch prediction support via CSV upload
-- [ ] Integrate additional ML models for ensemble predictions
-- [ ] Add real-time monitoring dashboard
-- [ ] Implement A/B testing framework
-- [ ] Add internationalization support
-- [ ] Create mobile app versions (React Native)
+### Import Errors
+- Verify all __init__.py files are present
+- Check Python version: `python --version` (should be 3.11+)
+- Reinstall dependencies: `pip install -r requirements.txt --force-reinstall`
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+MIT License - see LICENSE file for details
 
 ## Acknowledgments
 
 - UCI Machine Learning Repository for the Cleveland Heart Disease dataset
-- TensorFlow and Keras teams for the ML framework
-- FastAPI community for the excellent web framework
-- React and Vite teams for the frontend tools
+- FastAPI and Pydantic teams for excellent frameworks
+- TensorFlow and scikit-learn communities
+
+## Contact
+
+Aaron Sequeira - [GitHub](https://github.com/aaron-seq)
 
 ## Citation
 
 If you use this project in your research, please cite:
 
-```bibtex
-@software{heart_disease_prediction,
-  author = {Aaron Sequeira},
-  title = {Heart Disease Prediction using Advanced Neural Networks},
-  year = {2024},
-  url = {https://github.com/aaron-seq/HeartDiseasesPrediction}
+```
+@software{sequeira2025heart,
+  author = {Sequeira, Aaron},
+  title = {Heart Disease Prediction Tool},
+  year = {2025},
+  url = {https://github.com/aaron-seq/heart-diseases-prediction-tool}
 }
 ```
-
-## Support
-
-For questions, issues, or feature requests, please open an issue on GitHub or contact the maintainers.
-
----
-
-Built with care for advancing cardiovascular health prediction through machine learning.
