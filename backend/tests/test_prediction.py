@@ -3,7 +3,7 @@ import pytest
 
 def test_prediction_validation_error(client):
     # Missing required fields; expect 422
-    resp = client.post('/api/v1/prediction', json={"age": 50})
+    resp = client.post("/api/v1/predict", json={"age": 50})
     assert resp.status_code in {400, 422}
 
 
@@ -21,10 +21,14 @@ def test_prediction_happy_path(client):
         "st_depression_exercise": 1.0,
         "st_slope_peak_exercise": "upsloping",
         "major_vessels_colored": 0,
-        "thalassemia_type": "normal"
+        "thalassemia_type": "normal",
     }
-    resp = client.post('/api/v1/prediction', json=payload)
+    resp = client.post("/api/v1/predict", json=payload)
     assert resp.status_code in {200, 201}
     body = resp.json()
     # Response schema keys may vary; check common signals
-    assert 'risk_probability' in body or 'probability' in body or 'confidence_score' in body
+    assert (
+        "risk_probability" in body
+        or "probability" in body
+        or "confidence_score" in body
+    )
